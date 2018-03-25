@@ -86,16 +86,16 @@ export default class App extends Component {
     return (
       <View style={styles.containerTextInput}>
         <TextInput
-          placeholder='Start typing'
           style={styles.textInput}
-          onChangeText={(inputValue) => this.setState({inputValue})}
-          underlineColorAndroid='transparent'
           value={this.state.inputValue}
+          placeholder='Start typing'
+          underlineColorAndroid='transparent'
+          onChangeText={(inputValue) => this.setState({inputValue})}
         />
         <Icon
-          color={constants.brandGreen}
-          type='font-awesome'
           name='search'
+          type='font-awesome'
+          color={constants.brandGreen}
           onPress={() => this.fetchApi(this.state.inputValue)}
         />
       </View>
@@ -159,13 +159,15 @@ export default class App extends Component {
       <Button
         key={button}
         title={button}
+        onPress={() => this.setState({filter: button})}
+        
         buttonStyle={this.state.filter === button
           ? styles.modalButtonsActive
           : styles.modalButtonsInactive}
+        
         textStyle={this.state.filter === button
           ? styles.modalButtonsTitleActive
           : styles.modalButtonsTitleInactive}
-        onPress={() => this.setState({filter: button})}
       />;
       
     return (
@@ -195,9 +197,9 @@ export default class App extends Component {
         
         conditional.rightElement = (
           <Badge
+            value={item.count}
             textStyle={styles.listItemBadgeText}
             containerStyle={styles.listItemBadgeContainer}
-            value={item.count}
           />
         );
         
@@ -237,15 +239,15 @@ export default class App extends Component {
       return (
         <ListItem
           key={hash(item)}
-          rightIcon={conditional.rightElement}
           title={conditional.titleElement}
+          rightIcon={conditional.rightElement}
           
           leftIcon={
             <Icon
               name={icon}
               type='font-awesome'
-              containerStyle={styles.containerListItemIcon}
               color={constants.brandGreen}
+              containerStyle={styles.containerListItemIcon}
             />
           }
         >
@@ -276,9 +278,9 @@ export default class App extends Component {
         <Modal
           animationType='fade'
           presentationStyle='overFullScreen'
-          transparent={true}
           visible={this.state.isModalVisible}
           onRequestClose={this.closeModal}
+          transparent={true}
         >
           <View style={styles.modalContainer}>
             <SearchBar
@@ -286,12 +288,12 @@ export default class App extends Component {
               clearIcon
               noIcon
               editable={false}
-              showLoadingIcon={this.state.isLoading}
               onCancel={this.closeModal}
               onClearText={this.closeModal}
+              showLoadingIcon={this.state.isLoading}
+              placeholder={this.state.resultPlaceholder}
               containerStyle={styles.containerSearchBar}
               inputStyle={styles.searchBarInput}
-              placeholder={this.state.resultPlaceholder}
               platform={Platform.OS}
             />
             {conditionalElement}
@@ -305,10 +307,10 @@ export default class App extends Component {
     return (
       <View style={styles.containerMain}>
         <Header
-          outerContainerStyles={styles.containerHeader}
           leftComponent={this.renderLogo()}
           centerComponent={this.renderSearchBar()}
           rightComponent={this.renderMenu()}
+          outerContainerStyles={styles.containerHeader}
         />
         {this.renderStartPage()}
         {this.renderModal()}
